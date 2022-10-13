@@ -18,7 +18,7 @@ export default function Home() {
                     <circle cx="12" cy="12" r="11" />
                     <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
                   </svg>
-                  <p className="ml-4">
+                  <p className="ml-3">
                     Customizing your
                     <code className="text-sm font-bold text-gray-900">tailwind.config.js</code> file
                   </p>
