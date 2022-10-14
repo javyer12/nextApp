@@ -1,11 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useAuth } from '@hook/useAuth';
 import { AiFillLock } from 'react-icons/ai';
-import { userData } from '@components/Header'
+import { userData } from '@components/Header';
+import ModalLoginError from '@common/ModalLoginError';
+
 export default function LoginPage() {
+
         const emailRef = useRef(null);
         const passwordRef = useRef(null);
         const auth = useAuth();
+        const [ loading, setLoading ] = useState(false);
 
         const submitHandler = (e) => {
                 e.preventDefault();
@@ -13,14 +17,27 @@ export default function LoginPage() {
                 const password = passwordRef.current.value;
                 auth.signIn(email, password).then(() => {
                         console.log("success");
-                });
+                        alert("Logged in")
+                        window.location.reload()
+                },
+                )
+                        .catch(function (error) {
+                                if (error.response?.status === 401) {
+                                        auth.setError('Username or password is incorrect.');
+                                } else if (error.request) {
+                                        auth.setError("We're having technical problems");
+                                } else {
+                                        auth.setError('Something went wrong');
+                                }
+                                setLoading(false);
+                        });
         }
         return (
                 <>
-                        <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                        <div className="min-h-full flex items-center justify-center  scroll py-12 px-4 sm:px-6 lg:px-8">
                                 <div className="max-w-md w-full space-y-8">
                                         <div>
-                                                <img className="mx-auto h-12 w-auto"
+                                                <img className="mx-auto h-20 w-auto rounded"
                                                         // src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                                                         src={userData.imageUrl}
                                                         alt="Workflow" />
@@ -86,6 +103,14 @@ export default function LoginPage() {
                                                                 </span>
                                                                 Sign in
                                                         </button>
+                                                        {auth.error ?
+                                                                <div className="text-left   p-4 mb-4 mt-4 text-sm text-red-800 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                                                        role="alert">
+                                                                        {auth.error} &nbsp; &nbsp;
+                                                                        <ModalLoginError />
+                                                                </div>
+                                                                : null
+                                                        }
                                                 </div>
                                         </form>
                                 </div>
