@@ -55,6 +55,9 @@ export default function ModalLoginError() {
                                             Remember that if you enter the wrong password in three (3) consecutive attempts,
                                             your access will be blocked by security measures.
                                         </p>
+                                        <p className="text-sm text-gray-500">
+                                            We'll Reload the page.
+                                        </p>
                                     </div>
                                     <div className="mt-4">
                                         <button

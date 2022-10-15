@@ -6,9 +6,6 @@ const endPoints = {
                 login: `${API}/api/${VERSION}/auth/login`,
                 profile: `${API}/api/${VERSION}/auth/profile`,
         },
-        products: {
-                getProduct: (id) => `${API}/api/${VERSION}/products/${id}`
-        },
         categories: {
                 list: `${API}/api/${VERSION}/categories`,
                 create: `${API}/api/${VERSION}/categories`,
@@ -21,12 +18,14 @@ const endPoints = {
                 get: (filename) => `${API}/api/${VERSION}/files/${filename}`,
         },
         products: {
+                getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
                 list: `${API}/api/${VERSION}/products`,
                 paginate: (limit = 10, offset = 1) => `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
-                get: (id) => `${API}/api/${VERSION}/products/${id}`,
-                create: `${API}/api/${VERSION}/products`,
-                update: (id) => `${API}/api/${VERSION}/products/${id}`,
-                delete: (id) => `${API}/api/${VERSION}/products/${id}`,
+                getProducts: (limit, offset) => `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
+                // getProducts: (limit, offset) => `${API}/api/${VERSION}/products/${id}`,
+                createProduct: `${API}/api/${VERSION}/products`,
+                updateProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+                deleteProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
         },
         users: {
                 list: `${API}/v${VERSION}/users`,

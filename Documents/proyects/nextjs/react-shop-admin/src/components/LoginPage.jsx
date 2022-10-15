@@ -1,15 +1,18 @@
 import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useAuth } from '@hook/useAuth';
 import { AiFillLock } from 'react-icons/ai';
-import { userData } from '@components/Header';
 import ModalLoginError from '@common/ModalLoginError';
 
 export default function LoginPage() {
-
+        const auth = useAuth();
+        const router = useRouter();
+        const [ loading, setLoading ] = useState(false);
+        //inputs info
         const emailRef = useRef(null);
         const passwordRef = useRef(null);
-        const auth = useAuth();
-        const [ loading, setLoading ] = useState(false);
+        //user data
+        const userData = useAuth();
 
         const submitHandler = (e) => {
                 e.preventDefault();
@@ -17,17 +20,24 @@ export default function LoginPage() {
                 const password = passwordRef.current.value;
                 auth.signIn(email, password).then(() => {
                         console.log("success");
-                        alert("Logged in")
-                        window.location.reload()
+                        router.push('/dashboard');
                 },
                 )
                         .catch(function (error) {
                                 if (error.response?.status === 401) {
                                         auth.setError('Username or password is incorrect.');
+                                        setTimeout(() => {
+                                                window.location.reload()
+                                        }, 5000)
+
                                 } else if (error.request) {
                                         auth.setError("We're having technical problems");
+                                        window.location.reload()
+
                                 } else {
                                         auth.setError('Something went wrong');
+                                        window.location.reload()
+
                                 }
                                 setLoading(false);
                         });
@@ -37,10 +47,15 @@ export default function LoginPage() {
                         <div className="min-h-full flex items-center justify-center  scroll py-12 px-4 sm:px-6 lg:px-8">
                                 <div className="max-w-md w-full space-y-8">
                                         <div>
-                                                <img className="mx-auto h-20 w-auto rounded"
-                                                        // src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                                        src={userData.imageUrl}
-                                                        alt="Workflow" />
+                                                {userData.user === null ?
+                                                        <img className="mx-auto h-20 w-auto rounded"
+                                                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                                                alt="Workflow" />
+                                                        :
+                                                        <img className="mx-auto h-20 w-auto rounded"
+                                                                src={userData?.user?.avatar}
+                                                                alt="Workflow" />
+                                                }
                                                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                                         </div>
                                         <form className="mt-8 space-y-6" action="#" onSubmit={submitHandler}>
