@@ -4,7 +4,6 @@ import Cookie from "js-cookie";
 import Link from 'next/link';
 import { useAuth } from "@hook/useAuth";
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-// import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
 // export const userData = {
 //         name: 'Tom Cook',
@@ -108,6 +107,34 @@ export default function Header() {
                                                                                                                         )}
                                                                                                                 </Menu.Item>
                                                                                                         ))}
+                                                                                                        {/* <Menu.Item key={userNavigation.name}>
+                                                                                                                {({ active }) => (
+                                                                                                                        <a href='' className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                                                                                                                Your Profile
+                                                                                                                        </a>
+                                                                                                                )}
+                                                                                                        </Menu.Item>
+                                                                                                        <Menu.Item key={userNavigation.name}>
+                                                                                                                {({ active }) => (
+                                                                                                                        <a href='' className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                                                                                                                Settings
+                                                                                                                        </a>
+                                                                                                                )}
+                                                                                                        </Menu.Item>
+                                                                                                        <Menu.Item key={userNavigation.name}>
+                                                                                                                {({ active }) => {
+
+                                                                                                                        auth != null ? <a href='' className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                                                                                                                Log out
+                                                                                                                        </a>
+                                                                                                                                :
+                                                                                                                                <a href='' className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                                                                                                                                        Log in
+                                                                                                                                </a>
+
+
+                                                                                                                }}
+                                                                                                        </Menu.Item> */}
                                                                                                 </Menu.Items>
                                                                                         </Transition>
                                                                                 </Menu>

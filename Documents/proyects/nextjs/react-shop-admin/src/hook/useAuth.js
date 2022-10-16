@@ -1,6 +1,8 @@
 //Libraries
 import React, { useState, useContext, createContext, useCallback, useEffect } from "react";
 import Cookie from "js-cookie";
+import { useRouter } from 'next/router';
+
 import axios from "axios";
 //Services
 import endPoints from '@services/api';
@@ -17,6 +19,7 @@ export const useAuth = () => {
 };
 // Function to get the user from the API with the token stored in the cookies
 function useProviderAuth() {
+        const router = useRouter();
         const [ user, setUser ] = useState(null);
         const [ error, setError ] = useState(null);
         const options = {
@@ -46,7 +49,12 @@ function useProviderAuth() {
 
                 if (access_token) {
                         const token = access_token;
-                        Cookie.set('token', token, { expires: 55 });
+                        try {
+                                Cookie.set('token', token, { expires: 25 });
+                        } catch (err) {
+                                router.push('/');
+                                alert(' Please Log in again!!')
+                        }
 
                         axios.defaults.headers.Authorization = `Bearer ${token}`;
                         const { data: users } = await axios.get(endPoints.auth.profile);

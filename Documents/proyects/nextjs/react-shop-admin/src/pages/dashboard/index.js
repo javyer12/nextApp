@@ -1,22 +1,16 @@
 import { useState } from 'react';
 import useFetch from '@hook/useFetch';
+//Components 
+import ModalMsg from '@common/ModalMsg';
 import Paginate from '@common/Paginate';
+import Charts from '@common/Chart';
+//services
 import endPoints from '@services/api/index';
 
-const people = [
-        {
-                name: 'Jane Cooper',
-                title: 'Regional Paradigm Technician',
-                department: 'Optimization',
-                role: 'Admin',
-                email: 'jane.cooper@example.com',
-                image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-        },
-];
 
 export default function Dashboard() {
         const [ offsetProducts, setOffsetProducts ] = useState(0);
-        const PRODUCTS_LIMIT = 6;
+        const PRODUCTS_LIMIT = 8;
 
         const products = useFetch(endPoints.products.getProducts(PRODUCTS_LIMIT, offsetProducts),);
         const totalProducts = useFetch(endPoints.products.getProducts(0, 0)).length;
@@ -24,10 +18,21 @@ export default function Dashboard() {
 
         // const PRODUCTS_OFFSET = 6;
         // const products = useFetch(endPoints.products.getPorducts(PRODUTS_LIMIT, PRODUCTS_OFFSET));
+        const categoryNames = products?.map((product) => product.category);
+        const categoryCount = categoryNames?.map((category) => category.name);
 
+        const countOccurrences = (arr) => arr.reduce((prev, curr) => ((prev[ curr ] = ++prev[ curr ] || 1), prev), {});
+        const data = {
+                datasets: [ {
+                        label: 'Category',
+                        data: countOccurrences(categoryCount),
+                        borderWidth: 2,
+                        backgroundColor: [ '#006600', '#ffae', '#fffaff', '#fff1e0', '#b5a5cc' ]
+                } ]
+        }
         return (
                 <>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-8">
                                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                                 <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -65,10 +70,12 @@ export default function Dashboard() {
                                                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                                                                 <div className="flex items-center">
                                                                                                         <div className="flex-shrink-0 h-10 w-10">
-                                                                                                                <img className="h-10 w-10 rounded-full" src={product.images[ 0 ]} alt="" />
+                                                                                                                <img className="h-10 w-10 rounded-full" src={product.images[ 0 ]} alt="P.I" />
                                                                                                         </div>
                                                                                                         <div className="ml-4">
-                                                                                                                <div className="text-sm font-medium text-gray-900">{product.title}</div>
+                                                                                                                <div className="text-sm font-medium text-gray-900">
+                                                                                                                        {product.title}
+                                                                                                                </div>
                                                                                                                 {/* <div className="text-sm text-gray-500">{product.description}</div> */}
                                                                                                         </div>
                                                                                                 </div>
@@ -111,6 +118,8 @@ export default function Dashboard() {
                                         </div>
                                 </div>
                         </div>
+                        <Charts className="mb-8 mt-8" chartData={data} />
+
                 </>
         );
 }
