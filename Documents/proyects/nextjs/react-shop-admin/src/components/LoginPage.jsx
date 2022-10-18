@@ -28,7 +28,7 @@ export default function LoginPage() {
                                         auth.setError('Username or password is incorrect.');
                                         setTimeout(() => {
                                                 window.location.reload()
-                                        }, 5000)
+                                        }, 7000)
 
                                 } else if (error.request) {
                                         auth.setError("We're having technical problems");

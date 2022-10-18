@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react';
 
 export default function ModalLoginError() {
     const [ isOpen, setIsOpen ] = useState(false);
+
     function closeModal() {
         setIsOpen(false);
     };
