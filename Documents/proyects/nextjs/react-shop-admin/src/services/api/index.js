@@ -18,11 +18,11 @@ const endPoints = {
                 get: (filename) => `${API}/api/${VERSION}/files/${filename}`,
         },
         products: {
+                allProducts: `${API}/api/${VERSION}/products/`,
                 getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
                 list: `${API}/api/${VERSION}/products`,
                 paginate: (limit = 10, offset = 1) => `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
                 getProducts: (limit, offset) => `${API}/api/${VERSION}/products?limit=${limit}&offset=${offset}`,
-                // getProducts: (limit, offset) => `${API}/api/${VERSION}/products/${id}`,
                 createProduct: `${API}/api/${VERSION}/products`,
                 updateProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
                 deleteProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
