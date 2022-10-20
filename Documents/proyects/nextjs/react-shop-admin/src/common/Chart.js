@@ -6,20 +6,24 @@ import {
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    LineElement,
+    PointElement,
 } from 'chart.js';
 
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
+    LineElement,
+    PointElement,
     Title,
     Tooltip,
     Legend);
 
-export default function Charts({ chartData }) {
+export function Charts({ chartData }) {
     return (
         <Fragment>
             <Bar
@@ -34,6 +38,35 @@ export default function Charts({ chartData }) {
                         legend: {
                             display: true,
                             position: 'top',
+                        }
+                    }
+                }}
+            />
+        </Fragment>
+    );
+
+}
+export function ChartsLine({ chartData }) {
+    return (
+        <Fragment>
+            <Line
+                data={chartData}
+                options={{
+                    title: {
+                        display: true,
+                        text: 'Categories ',
+                        fontSize: 40
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        }
+                    },
+                    element: {
+                        point: {
+                            radius: 3,
+                            pointStyle: 'circle'
                         }
                     }
                 }}

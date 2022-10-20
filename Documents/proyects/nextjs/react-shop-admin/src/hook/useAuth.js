@@ -70,10 +70,18 @@ function useProviderAuth() {
                 } catch (err) {
                         console.log('from useEffect ', err);
                 }
-        }, [])
+        }, []);
+
+        const logout = () => {
+                Cookie.remove('token');
+                setUser(null);
+                delete axios.defaults.headers.Authorization;
+                window.location.href = '/';
+        }
         return {
                 user,
                 signIn,
+                logout,
                 error,
                 setError,
         };

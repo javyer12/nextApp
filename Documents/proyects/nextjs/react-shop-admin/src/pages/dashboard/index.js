@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useFetch from '@hook/useFetch';
 //Components 
-import Charts from '@common/Chart';
+import { Charts } from '@common/Chart';
 import ProductsList from '@components/ProductsList';
 //services
 import endPoints from '@services/api/index';

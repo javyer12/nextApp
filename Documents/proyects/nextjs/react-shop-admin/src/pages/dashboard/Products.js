@@ -38,7 +38,12 @@ export default function Products() {
         try {
             getProducts();
         } catch (err) {
-            console.log(err);
+            setAlert({
+                actve: true,
+                message: `Something went wrong`,
+                type: 'error',
+                autoClose: true,
+            })
         }
     }, [ alert ]);
 
@@ -142,7 +147,9 @@ export default function Products() {
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">
-                                                            {product.title}
+                                                            <Link href={`/dashboard/details/${product.id}`} >
+                                                                {product.title}
+                                                            </Link>
                                                         </div>
                                                         {/* <div className="text-sm text-gray-500">{product.description}</div> */}
                                                     </div>
