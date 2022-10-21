@@ -7,6 +7,7 @@ import {
     MapPinIcon,
 } from '@heroicons/react/20/solid'
 import axios from 'axios';
+
 import { AiOutlinePlus } from 'react-icons/ai';
 import endPoints from '@services/api/index';
 import Modal from '@common/Modal';
@@ -197,12 +198,13 @@ export default function Products() {
                     </div>
                 </div>
             </div>
-            <div className='max-w-7xl mt-0 mb-5'>
+            <Alert alert={alert} handleClose={toggleAlert} />
+            <div className='max-w-7xl mt-0 mb-5 bg-gray-800'>
                 <Modal open={open} setOpen={setOpen}>
                     <FormProducts setOpen={setOpen} setAlert={setAlert} />
                 </Modal>
             </div>
-            <Alert alert={alert} handleClose={toggleAlert} />
+
         </Fragment>
     )
 }

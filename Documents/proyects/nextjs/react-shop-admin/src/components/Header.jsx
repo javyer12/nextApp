@@ -4,6 +4,8 @@ import Cookie from "js-cookie";
 import Link from 'next/link';
 import { useAuth } from "@hook/useAuth";
 import { Disclosure, Menu, Transition } from '@headlessui/react';
+import carrito from '@styles/img/carrito.png';
+import { GrCart } from 'react-icons/gr';
 
 const navigation = [
         { name: 'Dashboard', href: '/dashboard', current: true },
@@ -36,8 +38,8 @@ export default function Header() {
                                                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                                         <div className="flex items-center justify-between h-16">
                                                                 <div className="flex items-center">
-                                                                        <div className="flex-shrink-0">
-                                                                                <Link href="/"><a><img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" /></a></Link>
+                                                                        <div className="flex-shrink-0 bg-gray-100 rounded-2xl">
+                                                                                <Link href="/"><a><img className="h-8 w-8" src={carrito.src} alt="Workflow" /></a></Link>
                                                                         </div>
                                                                         <div className="hidden md:block">
                                                                                 <div className="ml-10 flex items-baseline space-x-4">
@@ -65,9 +67,11 @@ export default function Header() {
                                                                                         <span className="sr-only">View notifications</span>
                                                                                         {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                                                                                 </button>
-
+                                                                                <div className="-mr-2 flex p-1 m-5 bg-gray-100 rounded-2xl">
+                                                                                        <Link href="/"><GrCart className='block h-6 w-6 text-white' /></Link>
+                                                                                </div>
                                                                                 {/* Profile dropdown */}
-                                                                                <Menu as="div" className="ml-3 relative">
+                                                                                <Menu as="div" className="ml-9 relative">
                                                                                         <div>
                                                                                                 <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                                                         <span className="sr-only">Open user menu</span>
@@ -106,6 +110,7 @@ export default function Header() {
                                                                                 </Menu>
                                                                         </div>
                                                                 </div>
+
                                                                 <div className="-mr-2 flex md:hidden">
                                                                         {/* Mobile menu button */}
                                                                         <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">

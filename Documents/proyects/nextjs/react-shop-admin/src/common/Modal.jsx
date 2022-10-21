@@ -24,9 +24,9 @@ export default function Modal({ open, setOpen, children }) {
                                                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                                         >
-                                                <div className="relative  inline-block align-bottom bg-white rounded-lg text-left  shadow-xl  sm:my-8 sm:align-middle sm:max-w-full sm:w-full">
-                                                        <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                                <BsXCircle className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer" aria-hidden="true" onClick={() => setOpen(false)} ref={cancelButtonRef} />
+                                                <div className="fixed  inline-block pr-15  w-full align-bottom bg-white rounded-lg text-left  shadow-xl  sm:my-8 sm:align-middle sm:max-w-full sm:w-full">
+                                                        <div className="bg-gray-50 px-4 py-3 mr-15 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                                <BsXCircle className="flex-shrink-0 h-6  mr-5 w-6 text-gray-400 cursor-pointer" aria-hidden="true" onClick={() => setOpen(false)} ref={cancelButtonRef} />
                                                         </div>
                                                         <div className=" bg-white  pb-30 mb-20 sm:p-6 sm:pb-4 ">
                                                                 <div className="mb-20 sm:flex sm:items-start "

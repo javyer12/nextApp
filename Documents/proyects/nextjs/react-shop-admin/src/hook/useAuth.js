@@ -43,6 +43,10 @@ function useProviderAuth() {
                 }
         }, []);
 
+        const register = async (data) => {
+                const users = await axios.post(endPoints.users.create, data, options);
+                return users;
+        }
         const signIn = async (email, password) => {
                 const { data: { access_token } } = await axios.post(endPoints.auth.login, { email, password }, options);
 
@@ -84,5 +88,6 @@ function useProviderAuth() {
                 logout,
                 error,
                 setError,
+                register
         };
 };

@@ -47,8 +47,8 @@ export default function Details() {
 
     const breadcrumb = [
         { name: product?.category?.name },
-        { name: "Details" },
         { name: product.title },
+        { name: "Details" },
     ]
     return (
         <div className="bg-white">

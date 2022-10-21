@@ -9,8 +9,8 @@ import "../../node_modules/tailwindcss/tailwind.css";
 const navigation = [
   { name: 'Product', href: '/dashboard/products' },
   { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'My Order', href: '/checkout' },
+  { name: 'Sign up', href: '/register' },
 ]
 export default function Home() {
   return (
