@@ -1,10 +1,11 @@
 import { Fragment } from 'react';
 import Checkout from '@components/Checkout';
+import Order from '@common/Order';
 
-export default function CheckoutOrder() {
+export default function CheckoutOrder({ open, setOpen }) {
     return (
         <Fragment>
-            <Checkout />
+            <Order open={open} setOpen={setOpen} />
         </Fragment>
     )
 }

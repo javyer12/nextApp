@@ -1,11 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
-import Cookie from "js-cookie";
+import { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from "@hook/useAuth";
 import { Disclosure, Menu, Transition } from '@headlessui/react';
+import CheckoutOrder from '@pages/checkout/index';
 import carrito from '@styles/img/carrito.png';
 import { GrCart } from 'react-icons/gr';
+import { BsXCircle } from 'react-icons/bs';
 
 const navigation = [
         { name: 'Dashboard', href: '/dashboard', current: true },
@@ -23,15 +24,25 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+        const [ open, setOpen ] = useState(false);
+        console.log(open)
         const auth = useAuth();
         const userData = {
                 userName: auth?.user?.name,
                 email: auth?.user?.email,
                 imageUrl: auth?.user?.avatar
         };
-
+        const handleOpenOrder = () => {
+                setOpen(true)
+                console.log(open)
+        }
+        useEffect(() => {
+                setOpen(true)
+                console.log(open)
+        })
         return (
-                <>
+                <Fragment>
+                        <CheckoutOrder open={open} setOpen={setOpen} />
                         <Disclosure as="nav" className="bg-gray-800">
                                 {({ open }) => (
                                         <>
@@ -67,47 +78,71 @@ export default function Header() {
                                                                                         <span className="sr-only">View notifications</span>
                                                                                         {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
                                                                                 </button>
+                                                                                {/* car and order link */}
                                                                                 <div className="-mr-2 flex p-1 m-5 bg-gray-100 rounded-2xl">
-                                                                                        <Link href="/"><GrCart className='block h-6 w-6 text-white' /></Link>
+                                                                                        <Menu as="div" className="ml-1 relative">
+                                                                                                <div>
+                                                                                                        <Menu.Button className="max-w-xs bg-gray-100 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-white">
+                                                                                                                <span className="sr-only">Open user menu</span>
+                                                                                                                <GrCart className='block h-6 w-6 m-1 text-white' />
+                                                                                                        </Menu.Button>
+                                                                                                </div>
+                                                                                                <Transition
+                                                                                                        as={Fragment}
+                                                                                                        enter="transition ease-out duration-100"
+                                                                                                        enterFrom="transform opacity-0 scale-95"
+                                                                                                        enterTo="transform opacity-100 scale-100"
+                                                                                                        leave="transition ease-in duration-75"
+                                                                                                        leaveFrom="transform opacity-100 scale-100"
+                                                                                                        leaveTo="transform opacity-0 scale-95"
+                                                                                                >
+                                                                                                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-28 rounded-md shadow-lg py-1 bg-white ring-1 focus:outline-none">
+                                                                                                                <button
+                                                                                                                        onClick={handleOpenOrder}
+                                                                                                                        className="ml-1">Order</button>
+                                                                                                        </Menu.Items>
+                                                                                                </Transition>
+                                                                                        </Menu>
+                                                                                        {/* avatar */}
+                                                                                        <Menu as="div" className="ml-9 relative">
+                                                                                                <div>
+                                                                                                        <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                                                                <span className="sr-only">Open user menu</span>
+                                                                                                                {userData.imageUrl === undefined ?
+                                                                                                                        <img className="h-8 w-8 rounded-full"
+                                                                                                                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                                                                                                                alt="Workflow" />
+                                                                                                                        :
+                                                                                                                        <img className="h-8 w-8 rounded-full"
+                                                                                                                                src={userData.imageUrl}
+                                                                                                                                alt="Workflow" />
+                                                                                                                }
+                                                                                                        </Menu.Button>
+                                                                                                </div>
+                                                                                                <Transition
+                                                                                                        as={Fragment}
+                                                                                                        enter="transition ease-out duration-100"
+                                                                                                        enterFrom="transform opacity-0 scale-95"
+                                                                                                        enterTo="transform opacity-100 scale-100"
+                                                                                                        leave="transition ease-in duration-75"
+                                                                                                        leaveFrom="transform opacity-100 scale-100"
+                                                                                                        leaveTo="transform opacity-0 scale-95"
+                                                                                                >
+                                                                                                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                                                                                {auth?.user != null ?
+                                                                                                                        <button onClick={() => {
+                                                                                                                                auth.logout();
+                                                                                                                        }} className="block px-4 py-2 text-sm text-gray-700">
+                                                                                                                                Log out
+                                                                                                                        </button>
+                                                                                                                        :
+                                                                                                                        <Link href='/login'><p className="block px-4 py-2 text-sm text-gray-700">Log in</p></Link>
+
+                                                                                                                }
+                                                                                                        </Menu.Items>
+                                                                                                </Transition>
+                                                                                        </Menu>
                                                                                 </div>
-                                                                                {/* Profile dropdown */}
-                                                                                <Menu as="div" className="ml-9 relative">
-                                                                                        <div>
-                                                                                                <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                                                                                        <span className="sr-only">Open user menu</span>
-                                                                                                        {userData.imageUrl === undefined ?
-                                                                                                                <img className="h-8 w-8 rounded-full"
-                                                                                                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                                                                                                        alt="Workflow" />
-                                                                                                                :
-                                                                                                                <img className="h-8 w-8 rounded-full"
-                                                                                                                        src={userData.imageUrl}
-                                                                                                                        alt="Workflow" />
-                                                                                                        }
-                                                                                                </Menu.Button>
-                                                                                        </div>
-                                                                                        <Transition
-                                                                                                as={Fragment}
-                                                                                                enter="transition ease-out duration-100"
-                                                                                                enterFrom="transform opacity-0 scale-95"
-                                                                                                enterTo="transform opacity-100 scale-100"
-                                                                                                leave="transition ease-in duration-75"
-                                                                                                leaveFrom="transform opacity-100 scale-100"
-                                                                                                leaveTo="transform opacity-0 scale-95"
-                                                                                        >
-                                                                                                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                                                                        {auth?.user != null ?
-                                                                                                                <button onClick={() => {
-                                                                                                                        auth.logout();
-                                                                                                                }} className="block px-4 py-2 text-sm text-gray-700">
-                                                                                                                        Log out
-                                                                                                                </button>
-                                                                                                                :
-                                                                                                                <Link href='/login'><p className="block px-4 py-2 text-sm text-gray-700">Log in</p></Link>
-                                                                                                        }
-                                                                                                </Menu.Items>
-                                                                                        </Transition>
-                                                                                </Menu>
                                                                         </div>
                                                                 </div>
 
@@ -115,7 +150,7 @@ export default function Header() {
                                                                         {/* Mobile menu button */}
                                                                         <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                                 <span className="sr-only">Open main menu</span>
-                                                                                {open ? <XIcon className="block h-6 w-6" aria-hidden="true" /> :
+                                                                                {open ? <BsXCircle className="block h-6 w-6" aria-hidden="true" /> :
                                                                                         // <MenuIcon className="block h-6 w-6" aria-hidden="true" />
                                                                                         "No icon"
                                                                                 }
@@ -176,6 +211,6 @@ export default function Header() {
                                         </>
                                 )}
                         </Disclosure>
-                </>
+                </Fragment>
         );
 }
