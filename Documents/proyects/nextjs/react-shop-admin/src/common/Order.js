@@ -29,9 +29,8 @@ const products = [
     // More products...
 ]
 
-export default function Order({ open, setOpen }) {
-    // const [ open, setOpen ] = useState(true)
-    console.log(open, setOpen)
+export default function Order() {
+    const [ open, setOpen ] = useState(true)
 
     return (
         <Transition.Root show={open} as={Fragment}>

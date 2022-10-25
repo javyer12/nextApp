@@ -7,6 +7,7 @@ import CheckoutOrder from '@pages/checkout/index';
 import carrito from '@styles/img/carrito.png';
 import { GrCart } from 'react-icons/gr';
 import { BsXCircle } from 'react-icons/bs';
+import { TiThMenuOutline } from 'react-icons/ti';
 
 const navigation = [
         { name: 'Dashboard', href: '/dashboard', current: true },
@@ -25,17 +26,16 @@ function classNames(...classes) {
 
 export default function Header() {
         const [ open, setOpen ] = useState(false);
-        console.log(open)
         const auth = useAuth();
         const userData = {
                 userName: auth?.user?.name,
                 email: auth?.user?.email,
                 imageUrl: auth?.user?.avatar
         };
-        const handleOpenOrder = () => {
-                setOpen(true)
-                console.log(open)
-        }
+        // const handleOpenOrder = () => {
+        //         setOpen(true)
+        //         console.log(open)
+        // }
         useEffect(() => {
                 setOpen(true)
                 console.log(open)
@@ -98,7 +98,7 @@ export default function Header() {
                                                                                                 >
                                                                                                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-28 rounded-md shadow-lg py-1 bg-white ring-1 focus:outline-none">
                                                                                                                 <button
-                                                                                                                        onClick={handleOpenOrder}
+                                                                                                                        // onClick={handleOpenOrder}
                                                                                                                         className="ml-1">Order</button>
                                                                                                         </Menu.Items>
                                                                                                 </Transition>
@@ -151,8 +151,9 @@ export default function Header() {
                                                                         <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                                 <span className="sr-only">Open main menu</span>
                                                                                 {open ? <BsXCircle className="block h-6 w-6" aria-hidden="true" /> :
-                                                                                        // <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-                                                                                        "No icon"
+
+                                                                                        <TiThMenuOutline className="block h-6 w-6" aria-hidden="true" />
+                                                                                        // "No icon"
                                                                                 }
                                                                         </Disclosure.Button>
                                                                 </div>
